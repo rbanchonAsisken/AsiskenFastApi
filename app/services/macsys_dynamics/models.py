@@ -8,3 +8,9 @@ class FechaFiltro(BaseModel):
     
 class FechaCorte(BaseModel):
     v_fecha: str
+    
+class ParamValidarDiaIntegradoNd(BaseModel):
+    dia: int
+    mes: int
+    anio: int
+    nom_seccion: str

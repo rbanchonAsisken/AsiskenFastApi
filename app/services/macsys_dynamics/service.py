@@ -4,6 +4,8 @@ from app.db import client, clientSQL
 
 class MacsysDynamicsService():
     
+####### LLAMADO A PROCEDIMIENTOS INFORMIX
+    
     @staticmethod
     def obtener_reembolso(fecha:FechaCorte) -> list:
         
@@ -303,3 +305,25 @@ class MacsysDynamicsService():
         ]
         
         return client.sp_return_list(sql, parameters, index_column_names)      
+    
+    
+####### LLAMADO A PROCEDIMIENTOS EN EL SQL SERVER
+
+    @staticmethod
+    def validar_dia_integrado(param:ParamValidarDiaIntegradoNd) -> list:
+        
+        sql = "exec sp_obtener_nd_integrado :dia,:mes,:anio,:nom_seccion "
+        
+        parameters={
+            "dia": param.dia,
+            "mes": param.mes,
+            "anio": param.anio,
+            "nom_seccion": param.nom_seccion
+        }
+        
+        index_column_names = [
+            "mensaje",
+            "fecha"
+        ]
+        
+        return clientSQL.sp_return_list(sql, parameters, index_column_names)      

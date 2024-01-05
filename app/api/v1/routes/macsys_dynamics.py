@@ -11,6 +11,8 @@ def macsys_dynamics():
         "mensaje":"Grupo de APIs para Integrar Información del Macsys al Dynamics"
     }
     
+########## METODOS DE ACCESO AL INFORMIX
+    
 @macsys_dynamics_router.post('/obtener-reembolsos')
 def obtener_reembolsos(param:FechaCorte):
     '''
@@ -136,3 +138,23 @@ def obtener_facturas_compras_detalle(param:FechaCorte):
     - **Ruta**: `/obtener-facturacompradetalle`
     '''     
     return MacsysDynamicsService.obtener_factura_compra_detalle(param)
+
+########## METODOS DE ACCESO AL SQL SERVER
+
+@macsys_dynamics_router.post('/validar-diaintegradond')
+def validar_dia_integrado_nd(param:ParamValidarDiaIntegradoNd):
+    '''
+    Obtiene un listado de las Facturas de Liquidaciones de Prestadores.
+
+    ### Descripción
+
+    Esta operación recupera el Detalle de Compras de Prestadores por Corte de Fecha.
+
+    ### Detalles Técnicos
+
+    - **Consulta SQL**: `EXECUTE PROCEDURE fn_detalle_fac_cxp(:v_fecha_desde,:v_fecha_hasta);`
+    - **Formato de Parámetos de entrada**: `yyyy-MM-dd`
+    - **Método HTTP**: `POST`
+    - **Ruta**: `/validar-diaintegradond`
+    '''     
+    return MacsysDynamicsService.validar_dia_integrado(param)
